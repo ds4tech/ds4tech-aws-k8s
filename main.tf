@@ -16,6 +16,13 @@ data "aws_availability_zones" "available" {}
 
 locals {
   cluster_name = "ms-dev-eks"
+  region = "eu-central-1"
+
+  tags = {
+    Example    = local.cluster_name
+    email = "ds4tech@gmail.com"
+    owner  = "Mateusz Szymczyk"
+  }
 }
 
 resource "random_string" "suffix" {
