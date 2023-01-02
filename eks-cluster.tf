@@ -43,7 +43,7 @@ module "eks" {
 
       min_size     = 0
       max_size     = 1
-      desired_size = 0
+      desired_size = 1
 
       pre_bootstrap_user_data = <<-EOT
       echo 'foo bar'
