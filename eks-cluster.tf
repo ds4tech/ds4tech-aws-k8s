@@ -5,8 +5,9 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = "1.23"
 
-  vpc_id     = module.vpc.vpc_id
-  subnet_ids = module.vpc.private_subnets
+### read using data object
+  vpc_id     = data.aws_vpc.selected.id
+  subnet_ids = data.aws_subnets.private.ids
 
   eks_managed_node_group_defaults = {
     ami_type = "AL2_x86_64"
@@ -32,7 +33,7 @@ module "eks" {
       EOT
 
       vpc_security_group_ids = [
-        aws_security_group.node_group_one.id
+        data.aws_security_group.node_group_one.id
       ]
     }
 
@@ -43,14 +44,14 @@ module "eks" {
 
       min_size     = 0
       max_size     = 1
-      desired_size = 1
+      desired_size = 0
 
       pre_bootstrap_user_data = <<-EOT
       echo 'foo bar'
       EOT
 
       vpc_security_group_ids = [
-        aws_security_group.node_group_two.id
+        data.aws_security_group.node_group_two.id
       ]
     }
   }
