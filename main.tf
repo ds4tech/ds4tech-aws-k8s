@@ -15,7 +15,7 @@ provider "aws" {
 data "aws_availability_zones" "available" {}
 
 locals {
-  cluster_name = "ms-dev-eks"
+  cluster_name = "ms-dev-k8s"
   region = "eu-central-1"
 
   tags = {

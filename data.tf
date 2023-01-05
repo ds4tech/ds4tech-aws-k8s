@@ -13,13 +13,24 @@ data "aws_subnets" "private" {
   }
 }
 
-variable "security_group_id" {
-  default = "sg-0108e8725ea543dde"
+data "aws_security_groups" "node_group_one" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.selected.id]
+  }
+  filter {
+    name   = "tag:Purpose"
+    values = ["node_group_one"]
+  }
 }
 
-data "aws_security_group" "node_group_one" {
-  id = var.security_group_id
-}
-data "aws_security_group" "node_group_two" {
-  id = var.security_group_id
+data "aws_security_groups" "node_group_two" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.selected.id]
+  }
+  filter {
+    name   = "tag:Purpose"
+    values = ["node_group_two"]
+  }
 }
